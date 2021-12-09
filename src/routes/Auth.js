@@ -4,7 +4,11 @@ import { authService } from "fbase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  GithubAuthProvider,
 } from "firebase/auth";
+// import google_provider from "fbase";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -32,11 +36,11 @@ const Auth = () => {
           email,
           password
         );
-        console.log(data);
+        console.log("create new account mode ", data);
       } else {
         // log in
         data = await signInWithEmailAndPassword(authService, email, password);
-        console.log(data);
+        console.log("log in mode", data);
       }
     } catch (error) {
       setError(error.message);
@@ -46,6 +50,28 @@ const Auth = () => {
 
   const onToggleChange = () => {
     setNewAccount((prev) => !prev);
+  };
+
+  const onSocialClick = (event) => {
+    const { name } = event.target;
+    console.log(name);
+    if (name === "google") {
+      //google
+      let google_provider = new GoogleAuthProvider();
+      console.log("google_provider : ", google_provider);
+      signInWithPopup(authService, google_provider).then((result) => {
+        const user = result.user;
+        console.log("user : ", user);
+      });
+    } else if (name === "github") {
+      // github
+      let github_provider = new GithubAuthProvider();
+      console.log("github_provider : ", github_provider);
+      signInWithPopup(authService, github_provider).then((result) => {
+        const user = result.user;
+        console.log("user : ", user);
+      });
+    }
   };
 
   return (
@@ -77,8 +103,12 @@ const Auth = () => {
         />
       </form>
       <div>
-        <button>Continue with Google</button>
-        <button>Continue with Github</button>
+        <button onClick={onSocialClick} name="google">
+          Continue with Google
+        </button>
+        <button onClick={onSocialClick} name="github">
+          Continue with Github
+        </button>
       </div>
     </div>
   );
