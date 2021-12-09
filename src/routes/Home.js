@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
-const Home = () => <span>Home</span>
+const Home = () => <div>Log In Success!</div>;
 export default Home;
