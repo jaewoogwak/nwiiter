@@ -39,7 +39,7 @@ const Home = () => {
   useEffect(() => {
     getNweets();
   }, []);
-
+  // fadsdsafffdsasda
   console.log(nweets);
   return (
     <div>
