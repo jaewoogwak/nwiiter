@@ -11,6 +11,7 @@ import {
   query,
   doc,
 } from "firebase/firestore";
+import Nweet from "components/Nweet";
 
 const Home = ({ userObj }) => {
   const [nweet, setNweet] = useState("");
@@ -65,8 +66,12 @@ const Home = ({ userObj }) => {
       </form>
       <div>
         nweets
-        {nweets.map((v) => (
-          <div key={v.id}>{v.text}</div>
+        {nweets.map((nweet) => (
+          <Nweet
+            key={nweet.id}
+            nweetObj={nweet}
+            isOwner={nweet.creatorId === userObj.uid}
+          />
         ))}
       </div>
     </div>
