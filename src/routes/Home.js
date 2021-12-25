@@ -16,6 +16,7 @@ import Nweet from "components/Nweet";
 const Home = ({ userObj }) => {
   const [nweet, setNweet] = useState("");
   const [nweets, setNweets] = useState([]);
+  const [attachment, setAttachment] = useState();
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -36,6 +37,27 @@ const Home = ({ userObj }) => {
     setNweet(value);
   };
 
+  const onFileChange = (event) => {
+    const { files } = event.target;
+    const theFile = files[0];
+    const reader = new FileReader();
+    reader.onloadend = (finishedEvent) => {
+      const { result } = finishedEvent.currentTarget;
+      console.log(result);
+      setAttachment(result);
+    };
+    reader.readAsDataURL(theFile);
+    console.log(theFile);
+  };
+
+  const onFileClear = (event) => {
+    const { value } = event.target;
+    console.log(event.target);
+    // setAttachment(null);
+  };
+
+  const onClearAttachment = () => setAttachment(null);
+
   useEffect(() => {
     const q = query(
       collection(dbService, "nweets"),
@@ -51,7 +73,6 @@ const Home = ({ userObj }) => {
     });
   }, []);
 
-  console.log(nweets);
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -63,6 +84,20 @@ const Home = ({ userObj }) => {
           maxLength={120}
         />
         <input type="submit" value="nweet" />
+        <div>
+          <input
+            type="file"
+            //value={file}
+            onChange={onFileChange}
+            accept="image/*"
+          />
+        </div>
+        {attachment && (
+          <div>
+            <img src={attachment} width="50px" height="50px" />
+            <button onClick={onClearAttachment}>Clear</button>
+          </div>
+        )}
       </form>
       <div>
         nweets
