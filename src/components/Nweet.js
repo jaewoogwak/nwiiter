@@ -14,12 +14,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
     }
   };
   const toggleEditing = () => setEditing((prev) => !prev);
-  const onUpdateClick = async () => {
-    // const edit = window.prompt("Put in edit text", "Editting...");
-    await updateDoc(doc(dbService, "nweets", `${nweetObj.id}`), {
-      text: newNweet,
-    });
-  };
+
   const onSubmit = async (event) => {
     event.preventDefault();
     await updateDoc(doc(dbService, "nweets", `${nweetObj.id}`), {
@@ -55,7 +50,9 @@ const Nweet = ({ nweetObj, isOwner }) => {
       ) : (
         <>
           <h4>{nweetObj.text}</h4>
-
+          {nweetObj.attachmentUrl && (
+            <img src={nweetObj.attachmentUrl} width="100px" heigth="100px" />
+          )}
           {isOwner && (
             <>
               <button onClick={onDeleteClick}>Delete Nweet</button>
