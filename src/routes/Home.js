@@ -104,6 +104,7 @@ const Home = ({ userObj }) => {
           type="text"
           placeholder="What's on your mind?"
           maxLength={120}
+          autoFocus
         />
         <input type="submit" value="nweet" />
         <div>
