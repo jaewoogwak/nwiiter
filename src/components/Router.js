@@ -7,7 +7,7 @@ import Navigation from "./Navigation";
 import Profile from "routes/Profile";
 import Test from "routes/Test";
 
-const AppRouter = ({ isLoggedIn, userObj }) => {
+const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
     <Router>
       {isLoggedIn && <Navigation userObj={userObj} />}
@@ -22,7 +22,7 @@ const AppRouter = ({ isLoggedIn, userObj }) => {
             <Route
               exact={true}
               path={"/profile"}
-              element={<Profile userObj={userObj} />}
+              element={<Profile refreshUser={refreshUser} userObj={userObj} />}
             ></Route>
             <Route exatc={true} path={"/test"} element={<Test />}></Route>
             <Route exact={true} path={"/"}></Route>
