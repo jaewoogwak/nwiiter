@@ -19,6 +19,8 @@ function App() {
             updateProfile(user, { displayName: user.displayName }),
         });
         console.log(user);
+      } else {
+        setIsLoggedIn(false);
       }
       setInit(true);
     });
