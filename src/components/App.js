@@ -4,6 +4,7 @@ import { useState } from "react";
 import { authService } from "fbase";
 import { updateProfile } from "@firebase/auth";
 
+// test
 function App() {
   const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
